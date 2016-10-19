@@ -260,7 +260,16 @@ timeOutCounter();
 \******************************************************************************/
 
 var funcArray = [];
+var func = function(i){
+  return function(){
+    return i;
+  };
+};
 
+for (var i = 0; i < 6; i++) {
+  funcArray.push(func(i));
+}
+console.log(funcArray);
 /*
   Make the following code work
 
