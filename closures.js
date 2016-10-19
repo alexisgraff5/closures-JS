@@ -15,10 +15,12 @@ closure over the name variable. Invoke outer saving the return value into
 another variable called 'inner'. */
 
 // Code Here
+var inner = outer();
 
 //Once you do that, invoke inner.
 
 //Code Here
+inner();
 
 
 
@@ -48,6 +50,10 @@ Create a makeCall function that when invoked logs 'Calling Jake at 435-215-9248'
 in your console. */
 
   //Code Here
+  function makeCall(number) {
+    var inner = callFriend();
+    console.log(inner(number));
+  }
 
 
 
@@ -67,13 +73,20 @@ in your console. */
 properly. */
 
 //Code Here
+function makeCounter() {
+  var num = 0;
+  return function() {
+    num += 1;
+    return num;
+  };
+}
 
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+var count = makeCounter();
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -98,14 +111,25 @@ the module pattern to achieve this. */
 function counterFactory(value) {
 
   // Code here.
-
+  var inc = function() {
+    value += 1;
+    return value;
+  };
+  var dec = function() {
+    value -= 1;
+    return value;
+  };
 
   return {
-  }
+    inc: inc,
+    dec: dec
+  };
 }
 
 
 counter = counterFactory(10);
+console.log(counter.inc());
+console.log(counter.dec());
 
 
 
@@ -129,14 +153,17 @@ function motivation(firstname, lastname){
   var welcomeText = 'You\'re doing awesome, keep it up ';
 
   // code message function here.
+  function message() {
+    return welcomeText + firstname + " " + lastname + ".";
+  }
 
 
   //Uncommment this to return the value of your invoked message function
-  //return message();
+  return message();
 
 }
 
-motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
+console.log(motivation('Billy', 'Bob')); // 'Your doing awesome keep it up Billy Bob
 
 
 
@@ -172,12 +199,15 @@ var module = (function() {
 
   return {
     // Code here.
+    publicMethod: function() {
+      return privateMethod();
+    }
   };
 
 })();
 
 // Uncomment this after you create your public method
-//   module.publicMethod();
+module.publicMethod();
 
 
 
