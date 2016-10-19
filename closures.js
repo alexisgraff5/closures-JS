@@ -6,7 +6,7 @@ var outer = function(){
   var name = 'Tyler';
   return function(){
     return 'The original name was ' + name;
-  }
+  };
 };
 
 /****** INSTRUCTIONS PROBLEM 1 ******/
@@ -51,7 +51,7 @@ in your console. */
 
   //Code Here
   function makeCall(number) {
-    var inner = callFriend();
+    var inner = callF();
     console.log(inner(number));
   }
 
@@ -111,25 +111,33 @@ the module pattern to achieve this. */
 function counterFactory(value) {
 
   // Code here.
-  var inc = function() {
+/*  var inc = function() {
     value += 1;
     return value;
   };
   var dec = function() {
     value -= 1;
     return value;
-  };
+  }; */
+  var newValue = value;
 
   return {
-    inc: inc,
-    dec: dec
+    inc: function() {
+      newValue += 1;
+      return newValue;
+    },
+    dec: function() {
+      newValue -= 1;
+      return newValue;
+    }
   };
 }
 
 
-counter = counterFactory(10);
-console.log(counter.inc());
-console.log(counter.dec());
+var counter = counterFactory(10);
+counter.inc();
+counter.dec();
+
 
 
 
@@ -230,14 +238,15 @@ then 3, etc). Run this code in your console to see what the output is. */
 // To make this code work you will need to create a new scope for every iteration.
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-      console.log(i);
-    }, i * 1000)
+    setTimeout(newScope(i), i * 1000);
   }
+}
 
   function newScope(i) {
-    console.log(i)
-  }
+    return function(){
+      console.log(i);
+
+    };
 }
 timeOutCounter();
 
